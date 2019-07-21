@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'BlockBreaker', component: GamesComponent },
+  { path: ':gameName', component: GamesComponent },
   { path: '**', component: HomeComponent, redirectTo: '' }
 ];
 

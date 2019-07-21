@@ -1,4 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { debug } from 'util';
+import { Router, Route, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-games',
@@ -7,47 +9,72 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 })
 export class GamesComponent implements OnInit, AfterViewInit {
 
-  constructor() {}
+  chosenGameScriptsArray = [];
+  chosenGameInstance = '';
+
+  blockBreaker = [
+    '../../assets/Games/Block Breaker v1.1/TemplateData/UnityProgress.js',
+    '../../assets/Games/Block Breaker v1.1/Build/UnityLoader.js'
+  ];
+
+  // tslint:disable-next-line: max-line-length
+  blocBreakerInstance = 'var BlockBreakerGameInstance = UnityLoader.instantiate("gameContainer", "assets/Games/Block Breaker v1.1/Build/Block Breaker v1.1.json", {onProgress: UnityProgress});';
+
+  laserDefender = [
+    '../../assets/Games/Laser Defender v0.2/TemplateData/UnityProgress.js',
+    '../../assets/Games/Laser Defender v0.2/Build/UnityLoader.js'
+  ];
+
+  // tslint:disable-next-line: max-line-length
+  laserDefenderInstance = 'var LaserDefenderGameInstance = UnityLoader.instantiate("gameContainer", "assets/Games/Laser Defender v0.2/Build/Laser Defender v0.2.json", {onProgress: UnityProgress});';
+
+  constructor(private route: ActivatedRoute) {
+    const gameName = this.route.snapshot.paramMap.get('gameName');
+    if (gameName === 'BlockBreaker') {
+      this.chosenGameScriptsArray = this.blockBreaker;
+      this.chosenGameInstance = this.blocBreakerInstance;
+    }
+    if (gameName === 'LaserDefender') {
+      this.chosenGameScriptsArray = this.laserDefender;
+      this.chosenGameInstance = this.laserDefenderInstance;
+    }
+    this.loadScripts(this.chosenGameScriptsArray);
+  }
 
   ngOnInit() {
-    this.loadLink('assets/Games/Laser Defender v0.2/TemplateData/favicon.ico', 'shortcut icon');
-    this.loadLink('assets/Games/Laser Defender v0.2/TemplateData/style.css', 'stylesheet');
-    this.loadScript('assets/Games/Laser Defender v0.2/TemplateData/UnityProgress.js');
-    this.loadScript('assets/Games/Laser Defender v0.2/Build/UnityLoader.js');
   }
 
   ngAfterViewInit() {
-    this.loadScriptInstance();
+    this.launchInstance();
   }
 
-  loadLink(url: string, rel: string) {
-    const node = document.createElement('link');
-    node.href = '' + url; // insert url in between quotes
-    node.rel = rel;
-    // tslint:disable-next-line: deprecation
-    node.charset = 'utf-8';
-    document.getElementsByTagName('head')[0].appendChild(node);
-  }
-
-  loadScript(url: string) {
-    const node = document.createElement('script');
-    node.src = 'assets/Games/Laser Defender v0.2/Build/UnityLoader.js'; // insert url in between quotes
-    node.type = 'text/javascript';
-    node.async = true;
-    // tslint:disable-next-line: deprecation
-    node.charset = 'utf-8';
-    document.getElementsByTagName('head')[0].appendChild(node);
+  loadScripts(scripts: string[]) {
+    for (let i = 0; i < scripts.length; i++) {
+      const node = document.createElement('script');
+      node.src = scripts[i];
+      node.type = 'text/javascript';
+      node.async = false;
+      node.charset = 'utf-8';
+      document.getElementsByTagName('head')[0].appendChild(node);
+    }
   }
 
   loadScriptInstance() {
     const node = document.createElement('script');
     // tslint:disable-next-line: max-line-length
-    node.textContent = 'var LaserDefenderGameInstance = UnityLoader.instantiate("gameContainer", "assets/Games/Laser Defender v0.2/Build/Laser Defender v0.2.json", {onProgress: UnityProgress});';
+    node.textContent = this.chosenGameInstance;
     node.type = 'text/javascript';
     node.async = true;
     // tslint:disable-next-line: deprecation
     node.charset = 'utf-8';
     document.getElementsByTagName('head')[0].appendChild(node);
+  }
+
+  launchInstance() {
+    setTimeout(() => {
+      console.log('test');
+      this.loadScriptInstance();
+    }, 100);
   }
 
 }
