@@ -10,6 +10,7 @@ import { Router, Route, ActivatedRoute } from '@angular/router';
 export class GamesComponent implements OnInit, AfterViewInit {
 
   chosenGameScriptsArray = [];
+  chosenGameInstanceName = '';
   chosenGameInstance = '';
 
   blockBreaker = [
@@ -18,7 +19,7 @@ export class GamesComponent implements OnInit, AfterViewInit {
   ];
 
   // tslint:disable-next-line: max-line-length
-  blocBreakerInstance = 'var BlockBreakerGameInstance = UnityLoader.instantiate("gameContainer", "assets/Games/Block Breaker v1.1/Build/Block Breaker v1.1.json", {onProgress: UnityProgress});';
+  blockBreakerInstance = 'var instance = UnityLoader.instantiate("gameContainer", "assets/Games/Block Breaker v1.1/Build/Block Breaker v1.1.json", {onProgress: UnityProgress});';
 
   laserDefender = [
     '../../assets/Games/Laser Defender v0.2/TemplateData/UnityProgress.js',
@@ -26,13 +27,13 @@ export class GamesComponent implements OnInit, AfterViewInit {
   ];
 
   // tslint:disable-next-line: max-line-length
-  laserDefenderInstance = 'var LaserDefenderGameInstance = UnityLoader.instantiate("gameContainer", "assets/Games/Laser Defender v0.2/Build/Laser Defender v0.2.json", {onProgress: UnityProgress});';
+  laserDefenderInstance = 'var instance = UnityLoader.instantiate("gameContainer", "assets/Games/Laser Defender v0.2/Build/Laser Defender v0.2.json", {onProgress: UnityProgress});';
 
   constructor(private route: ActivatedRoute) {
     const gameName = this.route.snapshot.paramMap.get('gameName');
     if (gameName === 'BlockBreaker') {
       this.chosenGameScriptsArray = this.blockBreaker;
-      this.chosenGameInstance = this.blocBreakerInstance;
+      this.chosenGameInstance = this.blockBreakerInstance;
     }
     if (gameName === 'LaserDefender') {
       this.chosenGameScriptsArray = this.laserDefender;
@@ -72,9 +73,8 @@ export class GamesComponent implements OnInit, AfterViewInit {
 
   launchInstance() {
     setTimeout(() => {
-      console.log('test');
       this.loadScriptInstance();
-    }, 100);
+    }, 1000);
   }
 
 }
