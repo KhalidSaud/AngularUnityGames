@@ -1,11 +1,12 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { debug } from 'util';
 import { Router, Route, ActivatedRoute } from '@angular/router';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-games',
   templateUrl: './games.component.html',
-  styleUrls: ['./games.component.css']
+  styleUrls: ['./games.component.scss']
 })
 export class GamesComponent implements OnInit, AfterViewInit {
 
@@ -29,7 +30,7 @@ export class GamesComponent implements OnInit, AfterViewInit {
   // tslint:disable-next-line: max-line-length
   laserDefenderInstance = 'var instance = UnityLoader.instantiate("gameContainer", "assets/Games/Laser Defender v0.2/Build/Laser Defender v0.2.json", {onProgress: UnityProgress});';
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private shared: SharedService) {
     const gameName = this.route.snapshot.paramMap.get('gameName');
     if (gameName === 'BlockBreaker') {
       this.chosenGameScriptsArray = this.blockBreaker;
@@ -50,11 +51,13 @@ export class GamesComponent implements OnInit, AfterViewInit {
   }
 
   loadScripts(scripts: string[]) {
+    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < scripts.length; i++) {
       const node = document.createElement('script');
       node.src = scripts[i];
       node.type = 'text/javascript';
       node.async = false;
+      // tslint:disable-next-line: deprecation
       node.charset = 'utf-8';
       document.getElementsByTagName('head')[0].appendChild(node);
     }
