@@ -2,7 +2,7 @@
 <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark bg-primary mb-4" [containerInside]="false">
 
   <!-- Navbar brand -->
-  <mdb-navbar-brand><a class="navbar-brand" href="#">Khalid's Free Games</a></mdb-navbar-brand>
+  <mdb-navbar-brand><a class="navbar-brand" [routerLink]="['/home']">Khalid's Free Games</a></mdb-navbar-brand>
 
   <!-- Collapsible content -->
   <links>
@@ -13,10 +13,10 @@
         <a [routerLink]="['/home']" class="nav-link waves-light" mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a href="BlockBreaker" class="nav-link waves-light" mdbWavesEffect>Block Breaker</a>
+        <a href="BlockBreaker" target="_blank" class="nav-link waves-light" mdbWavesEffect>Block Breaker</a>
       </li>
       <li class="nav-item">
-        <a href="LaserDefender" class="nav-link waves-light" mdbWavesEffect>Laser Defender</a>
+        <a href="LaserDefender" target="_blank" class="nav-link waves-light" mdbWavesEffect>Laser Defender</a>
       </li>
 
       <!-- Dropdown -->

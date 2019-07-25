@@ -13,6 +13,7 @@ export class GamesComponent implements OnInit, AfterViewInit {
   chosenGameScriptsArray = [];
   chosenGameInstanceName = '';
   chosenGameInstance = '';
+  gameName = '';
 
   blockBreaker = [
     '../../assets/Games/Block Breaker v1.1/TemplateData/UnityProgress.js',
@@ -35,10 +36,12 @@ export class GamesComponent implements OnInit, AfterViewInit {
     if (gameName === 'BlockBreaker') {
       this.chosenGameScriptsArray = this.blockBreaker;
       this.chosenGameInstance = this.blockBreakerInstance;
+      this.gameName = 'Block Breaker';
     }
     if (gameName === 'LaserDefender') {
       this.chosenGameScriptsArray = this.laserDefender;
       this.chosenGameInstance = this.laserDefenderInstance;
+      this.gameName = 'Laser Defender';
     }
     this.loadScripts(this.chosenGameScriptsArray);
   }

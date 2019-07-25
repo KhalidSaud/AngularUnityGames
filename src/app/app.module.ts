@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { GamesComponent } from './games/games.component';
-import { ScriptsComponent } from './scripts/scripts.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
@@ -15,7 +14,6 @@ import { FooterComponent } from './footer/footer.component';
     AppComponent,
     HomeComponent,
     GamesComponent,
-    ScriptsComponent,
     HeaderComponent,
     FooterComponent
   ],
