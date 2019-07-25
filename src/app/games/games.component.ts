@@ -77,8 +77,7 @@ export class GamesComponent implements OnInit, AfterViewInit {
   launchInstance() {
     setTimeout(() => {
       this.loadScriptInstance();
-    }, 1500);
-    // test
+    }, 2000);
   }
 
 }
